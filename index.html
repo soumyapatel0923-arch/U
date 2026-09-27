@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Note ⭐</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Poppins', sans-serif;
+      color: #1d4ed8 !important; /* Blue Font */
+    }
+
+    body {
+      background: #0f172a; /* Deep blue night sky background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Animated Starfield Background */
+    #starfield {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      user-select: none;
+      animation: starTwinkle linear infinite;
+    }
+
+    @keyframes starTwinkle {
+      0% { opacity: 0.15; transform: scale(0.7) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+      100% { opacity: 0.15; transform: scale(0.7) rotate(360deg); }
+    }
+
+    /* Main Card Container */
+    .card {
+      background: #ffffff;
+      border: 4px solid #1d4ed8;
+      padding: 35px 25px;
+      border-radius: 24px;
+      box-shadow: 0px 15px 35px rgba(29, 78, 216, 0.35), 8px 8px 0px #1d4ed8;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      z-index: 10;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: floatCard 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-8px); }
+    }
+
+    /* Screen Slide Animations */
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      animation: fadeInUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.92);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Pop Animation for Text Reveals */
+    .pop-in {
+      animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      80% { transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* Sticker GIF Styling */
+    img.sticker {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      border: 3px solid #1d4ed8;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 4px 4px 0px #1d4ed8;
+      transition: transform 0.3s ease;
+    }
+
+    img.sticker:hover {
+      transform: scale(1.04) rotate(-2deg);
+    }
+
+    /* Number Input */
+    input[type="number"] {
+      padding: 12px 18px;
+      font-size: 22px;
+      border: 3px solid #1d4ed8;
+      border-radius: 12px;
+      width: 150px;
+      text-align: center;
+      outline: none;
+      font-weight: bold;
+      box-shadow: 3px 3px 0px #1d4ed8;
+      transition: all 0.2s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      transform: scale(1.05);
+      box-shadow: 5px 5px 0px #1d4ed8;
+    }
+
+    /* Interactive Buttons */
+    button {
+      background: #ffea79;
+      color: #1d4ed8 !important;
+      font-weight: bold;
+      border: 3px solid #1d4ed8;
+      padding: 12px 26px;
+      font-size: 17px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0px #1d4ed8;
+      transition: transform 0.2s ease, background 0.15s ease, box-shadow 0.15s ease;
+      user-select: none;
+    }
+
+    button:hover {
+      background: #ffd54f;
+      transform: translate(-2px, -2px) scale(1.05);
+      box-shadow: 6px 6px 0px #1d4ed8;
+    }
+
+    button:active {
+      transform: translate(2px, 2px) scale(0.98);
+      box-shadow: 2px 2px 0px #1d4ed8;
+    }
+
+    /* Missing Me Button Container */
+    .button-group {
+      display: flex;
+      gap: 30px;
+      margin-top: 15px;
+      position: relative;
+      width: 100%;
+      height: 140px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #no-btn {
+      position: absolute;
+      top: 0px;
+      transition: top 0.25s ease-out, left 0.25s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen Starfield Background -->
+  <div id="starfield"></div>
+
+  <div class="card">
+
+    <!-- SCREEN 1: Busy -->
+    <div class="screen active" id="screen1">
+      <h2>busyyy ☹️</h2>
+      <img class="sticker" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3pwaTNreG1rb2E4bjVpaTZwcnM1a2s2cWlxaGg4cXBocXB4bTF4OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L9523421uJqq/giphy.gif" alt="Sad waiting GIF">
+      <button onclick="nextScreen(2)">Next ⭐</button>
+    </div>
+
+    <!-- SCREEN 2: Math 100+55 -->
+    <div class="screen" id="screen2">
+      <h2>100 + 55 = ?</h2>
+      <input type="number" id="math-input" placeholder="Enter sum" oninput="checkMath()">
+      
+      <div id="math-result" style="display:none; flex-direction:column; align-items:center; gap:14px;">
+        <h2 id="result-text" class="pop-in" style="font-size: 28px;"></h2>
+        <button onclick="nextScreen(3)" class="pop-in">Next ⭐</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Missing me? & Downward Dodging No Button -->
+    <div class="screen" id="screen3">
+      <h2>missing me?</h2>
+      
+      <div class="button-group" id="btn-group">
+        <button id="yes-btn" onclick="handleYes()">Yes</button>
+        <button id="no-btn" onmouseover="dodgeNo()" ontouchstart="dodgeNo()" onclick="dodgeNo()">No</button>
+      </div>
+
+      <h2 id="yes-response" class="pop-in" style="display:none; font-size: 28px;">ohhh yesss 🥹✊</h2>
+    </div>
+
+    <!-- SCREEN 4: Packing? Tired? -->
+    <div class="screen" id="screen4">
+      <h2>packing?</h2>
+      <h2>tired?</h2>
+      <button onclick="nextScreen(5)">Yes ⭐</button>
+    </div>
+
+    <!-- SCREEN 5: Boy Head Pat Final Screen -->
+    <div class="screen" id="screen5">
+      <h2>chlo do packing and take rest</h2>
+      <img class="sticker" src="https://media.giphy.com/media/5tmRHwUsUXOOY/giphy.gif" alt="Boy Head Pat GIF">
+    </div>
+
+  </div>
+
+  <script>
+    let noMoveCount = 0;
+
+    // Generate animated starfield in background
+    function createStars() {
+      const container = document.getElementById('starfield');
+      const starIcons = ['⭐', '🌟', '✨', '✦', '⭐'];
+      const starCount = 50;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.innerText = starIcons[Math.floor(Math.random() * starIcons.length)];
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.fontSize = `${Math.floor(Math.random() * 18) + 12}px`;
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        container.appendChild(star);
+      }
+    }
+
+    createStars();
+
+    // Smooth screen switcher
+    function nextScreen(screenNumber) {
+      const activeScreen = document.querySelector('.screen.active');
+      if (activeScreen) {
+        activeScreen.classList.remove('active');
+      }
+      
+      setTimeout(() => {
+        const nextTarget = document.getElementById(`screen${screenNumber}`);
+        nextTarget.classList.add('active');
+      }, 50);
+    }
+
+    // Math function: typing 155 converts to "MI55 you"
+    function checkMath() {
+      const val = document.getElementById('math-input').value;
+      if (val === '155') {
+        document.getElementById('math-input').style.display = 'none';
+        const resultDiv = document.getElementById('math-result');
+        const resultText = document.getElementById('result-text');
+        
+        resultText.innerText = "MI55 you";
+        resultDiv.style.display = 'flex';
+      }
+    }
+
+    // "No" button moves DOWNWARDS and DOWNWARDS on hover/click/touch
+    function dodgeNo() {
+      const noBtn = document.getElementById('no-btn');
+      noMoveCount++;
+
+      // Progressively shifts downwards downwards
+      let newTop = 35 * noMoveCount;
+      if (newTop > 90) newTop = 90; // Keeps it within the card boundaries
+
+      // Slight random left/right wobble while going downwards
+      let newLeft = Math.floor(Math.random() * 140) - 70;
+
+      noBtn.style.top = `${newTop}px`;
+      noBtn.style.left = `${newLeft}px`;
+    }
+
+    // Clicking Yes displays "ohhh yesss 🥹✊" then smoothly transitions
+    function handleYes() {
+      document.getElementById('btn-group').style.display = 'none';
+      const yesResp = document.getElementById('yes-response');
+      yesResp.style.display = 'block';
+
+      setTimeout(() => {
+        nextScreen(4);
+      }, 1600);
+    }
+  </script>
+</body>
+</html>
